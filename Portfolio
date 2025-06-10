@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+  <title>Ryan Pegler | Portfolio</title>
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- INLINE STYLES: FULL 220-LINE STYLESHEET -->
+  <style>
+  /*──────────────────────────────────────────────────────────────────────────
+    GLOBAL RESET & VARIABLES
+  ──────────────────────────────────────────────────────────────────────────*/
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  :root {
+    --clr-bg: #f0f2f5;
+    --clr-text: #1a1a1a;
+    --clr-primary: #4aa0f7;
+    --clr-primary-dark: #2070c8;
+    --clr-alt-bg: #ffffff;
+    --clr-alt-bg-2: #f8f9fa;
+    --clr-muted: #6c757d;
+    --font-sans: 'Inter', sans-serif;
+    --font-heading: 'Poppins', sans-serif;
+    --transition: 0.3s ease-in-out;
+  }
+  /* Dark mode overrides */
+  body.dark {
+    --clr-bg: #1a1a1a;
+    --clr-text: #f0f2f5;
+    --clr-primary: #66c0ff;
+    --clr-primary-dark: #3a8ed8;
+    --clr-alt-bg: #2a2a2a;
+    --clr-alt-bg-2: #333333;
+    --clr-muted: #aaaaaa;
+  }
+
+  /*──────────────────────────────────────────────────────────────────────────
+    BASE STYLES
+  ──────────────────────────────────────────────────────────────────────────*/
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--clr-bg);
+    color: var(--clr-text);
+    line-height: 1.5;
+  }
+  a {
+    text-decoration: none;
+    color: var(--clr-primary);
+    transition: color var(--transition);
+  }
+  a:hover { color: var(--clr-primary-dark); }
+  h1,h2,h3,h4,h5,h6 {
+    font-family: var(--font-heading);
+    color: var(--clr-text);
+    margin-bottom: 0.75rem;
+  }
+  p { margin-bottom: 1rem; }
+  .section {
+    padding: 4rem 1rem;
+    background: var(--clr-alt-bg);
+  }
+  .section.alt-bg { background: var(--clr-alt-bg-2); }
+  .section-title {
+    font-size: 2rem;
+    position: relative;
+    display: inline-block;
+  }
+  .section-title::after {
+    content: '';
+    display: block;
+    height: 3px;
+    width: 50px;
+    background: var(--clr-primary);
+    margin-top: 0.25rem;
+  }
+  .btn {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: background var(--transition), transform var(--transition);
+  }
+  .btn-primary {
+    background: var(--clr-primary);
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+  }
+  .btn-primary:hover {
+    background: var(--clr-primary-dark);
+    transform: translateY(-2px);
+  }
+
+  /*──────────────────────────────────────────────────────────────────────────
+    NAVBAR
+  ──────────────────────────────────────────────────────────────────────────*/
+  #navbar {
+    position: sticky;
+    top: 0;
+    background: var(--clr-alt-bg);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 100;
+  }
+  .nav-container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .brand {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--clr-text);
+  }
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+  }
+  .nav-links a {
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background var(--transition);
+  }
+  .nav-links a:hover,
+  .nav-links a.active {
+    background: var(--clr-primary);
+    color: #fff;
+  }
+  #mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+  }
+  @media (max-width: 768px) {
+    .nav-links {
+      position: absolute;
+      top: 60px;
+      right: 0;
+      background: var(--clr-alt-bg);
+      flex-direction: column;
+      width: 200px;
+      transform: translateX(100%);
+      transition: transform var(--transition);
+      box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+      padding: 1rem;
+    }
+    .nav-links.open { transform: translateX(0); }
+    #mobile-menu-toggle { display: block; cursor: pointer; }
+  }
+
+  /*──────────────────────────────────────────────────────────────────────────
+    HERO
+  ──────────────────────────────────────────────────────────────────────────*/
+  #hero {
+    height: 100vh;
+    background: url('https://source.unsplash.com/1600x900/?stadium,field') center/cover no-repeat;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-content {
+    text-align: center;
+    background: rgba(0,0,0,0.6);
+    padding: 2rem;
+    border-radius: 6px;
+    max-width: 700px;
+  }
+  .hero-title {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    color: #fff;
+  }
+  .hero-subtitle {
+    font-size: 1.25rem;
+    color: #ddd;
+  }
+  .cursor {
+    display: inline-block;
+    font-weight: bold;
+    animation: blink 0.7s infinite;
+  }
+  @keyframes blink {
+    0%,100%{opacity:1}50%{opacity:0}
+  }
+
+  /*──────────────────────────────────────────────────────────────────────────
+    CARDS CONTAINER (Experience & Projects)
+  ──────────────────────────────────────────────────────────────────────────*/
+  .cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .card {
+    background: var(--clr-alt-bg);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: transform var(--transition), box-shadow var(--transition);
+  }
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  }
+  .card h3 { margin-bottom:0.75rem; font-size:1.25rem }
+  .card p { color:var(--clr-muted); margin-bottom:1rem }
+  .card span { font-size:0.9rem; color:var(--clr-muted) }
+
+  /*──────────────────────────────────────────────────────────────────────────
+    SKILLS LIST
+  ──────────────────────────────────────────────────────────────────────────*/
+  .skills-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px,1fr));
+    gap:1rem;
+    margin-top:2rem;
+  }
+  .skills-list li {
+    background: var(--clr-alt-bg);
+    padding:.75rem;
+    border-radius:4px;
+    text-align:center;
+    font-weight:500;
+  }
+
+  /*──────────────────────────────────────────────────────────────────────────
+    CONTACT
+  ──────────────────────────────────────────────────────────────────────────*/
+  .contact-container {
+    display:flex;
+    gap:2rem;
+    flex-wrap:wrap;
+    margin-top:2rem;
+  }
+  .contact-form {
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    gap:1rem;
+  }
+  .input-field {
+    padding:.75rem;
+    border:1px solid var(--clr-muted);
+    border-radius:4px;
+    background: var(--clr-alt-bg);
+    color: var(--clf-text);
+  }
+  .input-field:focus {
+    border-color: var(--clr-primary);
+    outline: none;
+  }
+  .contact-info {
+    flex:1;
+    background: var(--clr-alt-bg);
+    padding:1.5rem;
+    border-radius:8px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.1);
+  }
+  .contact-info p {
+    margin-bottom:1rem;
+    font-weight:500;
+  }
+  .contact-info a { color: var(--clr-primary); }
+
+  /*──────────────────────────────────────────────────────────────────────────
+    FOOTER
+  ──────────────────────────────────────────────────────────────────────────*/
+  .footer {
+    text-align:center;
+    padding:2rem 1rem;
+    background: var(--clr-alt-bg-2);
+    color: var(--clr-muted);
+    font-size: 0.9rem;
+  }
+
+  /*──────────────────────────────────────────────────────────────────────────
+    FADE-UP ANIMATIONS
+  ──────────────────────────────────────────────────────────────────────────*/
+  @keyframes fadeInUp {
+    from { opacity:0; transform:translateY(20px) }
+    to { opacity:1; transform:translateY(0) }
+  }
+  .fade-up {
+    opacity:0;
+    transform:translateY(20px);
+  }
+  .fade-up.visible {
+    animation:fadeInUp .8s ease-out forwards;
+  }
+
+  /*──────────────────────────────────────────────────────────────────────────
+    BACK TO TOP & THEME TOGGLE
+  ──────────────────────────────────────────────────────────────────────────*/
+  #back-to-top,
+  #theme-toggle {
+    position:fixed;
+    right:1rem;
+    background: var(--clr-primary);
+    color:#fff;
+    border:none;
+    padding:.5rem;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:1.25rem;
+    z-index:200;
+    transition: background var(--transition), transform var(--transition);
+  }
+  #back-to-top:hover,
+  #theme-toggle:hover {
+    background: var(--clf-primary-dark);
+    transform: scale(1.1);
+  }
+  #back-to-top { bottom:1rem }
+  #theme-toggle { bottom:4rem }
+
+  /*──────────────────────────────────────────────────────────────────────────
+    RESPONSIVE
+  ──────────────────────────────────────────────────────────────────────────*/
+  @media (max-width: 640px) {
+    .hero-title { font-size: 2.5rem }
+    .cards-container { grid-template-columns: 1fr }
+    .contact-container { flex-direction: column }
+  }
+  </style>
+</head>
+
+<body>
+  <!-- DARK MODE TOGGLE -->
+  <button id="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+
+  <!-- BACK TO TOP -->
+  <button id="back-to-top" aria-label="Back to Top">↑</button>
+
+  <!-- NAVIGATION -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="#" class="brand">Ryan&nbsp;Pegler</a>
+      <ul class="nav-links">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="Ryan_Pegler_Resume.pdf" class="btn btn-primary" download>Resume</a>
+      <button id="mobile-menu-toggle" aria-label="Toggle Menu">☰</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header id="hero">
+    <div class="hero-content fade-up">
+      <h1 class="hero-title">Hey, I’m Ryan.</h1>
+      <p class="hero-subtitle">
+        <span id="typed-text"></span><span class="cursor">|</span>
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <!-- ABOUT -->
+    <section id="about" class="section fade-up">
+      <h2 class="section-title">About Me</h2>
+      <p>I’m a senior at UIUC studying Finance &amp; Information Systems. I founded <strong>OpenField</strong>, a platform bridging athletes and NIL opportunities. I combine data, tech, and finance to deliver real impact.</p>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="section alt-bg">
+      <h2 class="section-title">Experience</h2>
+      <div class="cards-container">
+        <div class="card fade-up"><h3>Prairie Road Partners</h3><p>Private Equity Intern</p><span>Summer 2024</span></div>
+        <div class="card fade-up"><h3>OpenField</h3><p>Founder &amp; Product Lead</p><span>2023 – Present</span></div>
+        <div class="card fade-up"><h3>Illini Blockchain</h3><p>Investment Analyst</p><span>Jan 2024 – May 2024</span></div>
+        <div class="card fade-up"><h3>HEDGE</h3><p>Equities &amp; Options Analyst</p><span>Jan 2024 – May 2024</span></div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section fade-up">
+      <h2 class="section-title">Projects</h2>
+      <div class="cards-container">
+        <div class="card"><h3>OpenField Platform</h3><p>NIL marketplace for Division II/III athletes—connecting athletes to local businesses.</p></div>
+        <div class="card"><h3>NBA Boom/Bust Predictor</h3><p>Draft prospect success model using BPM, ORtg, DRtg, age-adjusted metrics.</p></div>
+        <div class="card"><h3>StockPicks</h3><p>Simplified portfolio builder tailored by risk, sentiment, and sector preferences.</p><a href="https://medium.com/@ryanpegler21/stockpicks-simplified-investment-portfolio-management-9e09154b9460" class="link" target="_blank">Read Article →</a></div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="section alt-bg fade-up">
+      <h2 class="section-title">Skills &amp; Tools</h2>
+      <ul class="skills-list">
+        <li>Financial Modeling &amp; Valuation</li>
+        <li>Data Analysis &amp; Visualization</li>
+        <li>Basic HTML/CSS/JS &amp; React</li>
+        <li>Google Analytics &amp; Tableau</li>
+        <li>SQL &amp; Python (learning)</li>
+        <li>Figma &amp; UX Design Principles</li>
+      </ul>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section fade-up">
+      <h2 class="section-title">Get in Touch</h2>
+      <div class="contact-container">
+        <form class="contact-form">
+          <input type="text" placeholder="Your Name" class="input-field" required />
+          <input type="email" placeholder="Your Email" class="input-field" required />
+          <textarea placeholder="Your Message" rows="4" class="input-field" required></textarea>
+          <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
+        <div class="contact-info">
+          <p>📧 <a href="mailto:ryanpegler21@gmail.com">ryanpegler21@gmail.com</a></p>
+          <p>🔗 <a href="https://www.linkedin.com/in/ryanpegler" target="_blank">linkedin.com/in/ryanpegler</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer fade-up">
+    <p>© 2025 Ryan Pegler. All rights reserved.</p>
+  </footer>
+
+  <!-- INLINE SCRIPT: FULL 200-LINE INTERACTIONS -->
+  <script>
+  // Selectors
+  const sections = document.querySelectorAll('section');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const backToTopBtn = document.getElementById('back-to-top');
+  const themeToggleBtn = document.getElementById('theme-toggle');
+  const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+  const navLinksContainer = document.querySelector('.nav-links');
+  const typedTextEl = document.getElementById('typed-text');
+  const cursorEl = document.querySelector('.cursor');
+
+  // Smooth scroll & active link
+  navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      document.getElementById(link.getAttribute('href').slice(1))
+        .scrollIntoView({ behavior: 'smooth' });
+      navLinksContainer.classList.remove('open');
+    });
+  });
+  // Highlight on scroll
+  new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      const id = entry.target.id;
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        document.querySelector(`.nav-links a[href="#${id}"]`)
+                .classList.add('active');
+      }
+    });
+  },{ threshold:0.5 }).observe(document.body);
+
+  // Fade-up
+  document.querySelectorAll('.fade-up').forEach(el => {
+    new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          e.target._observer.disconnect();
+        }
+      });
+    }, { threshold:0.2 })
+    .observe(el);
+  });
+
+  // Typed text
+  const phrases = ['Finance & Tech Enthusiast.','Sports Analytics Buff.','Product Builder.','Always Learning.'];
+  let charIndex=0, phraseIndex=0;
+  function type(){let cur=phrases[phraseIndex];if(charIndex<cur.length){typedTextEl.textContent+=cur[charIndex++];setTimeout(type,100);}else setTimeout(erase,1500);}
+  function erase(){if(charIndex>0){typedTextEl.textContent=typedTextEl.textContent.slice(0,-1);charIndex--;setTimeout(erase,50);}else{phraseIndex=(phraseIndex+1)%phrases.length;setTimeout(type,500);}}
+  document.addEventListener('DOMContentLoaded',()=>setTimeout(type,1000));
+
+  // Back to top
+  window.addEventListener('scroll',()=>{backToTopBtn.style.display = window.scrollY>window.innerHeight/2?'block':'none';});
+  backToTopBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+  // Dark mode
+  (function(){
+    if(localStorage.getItem('theme')==='dark') document.body.classList.add('dark'),themeToggleBtn.textContent='☀️';
+    themeToggleBtn.onclick = ()=>{
+      document.body.classList.toggle('dark');
+      const dark=document.body.classList.contains('dark');
+      localStorage.setItem('theme',dark?'dark':'light');
+      themeToggleBtn.textContent = dark?'☀️':'🌙';
+    };
+  })();
+
+  // Mobile menu
+  mobileMenuToggle.addEventListener('click',()=>navLinksContainer.classList.toggle('open'));
+
+  // Contact form (demo)
+  document.querySelector('.contact-form').onsubmit=e=>{e.preventDefault();alert('Thanks for your message!');e.target.reset();};
+
+  // Parallax hero
+  window.addEventListener('scroll',()=>document.getElementById('hero')
+    .style.backgroundPositionY = window.scrollY*0.5+'px');
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
