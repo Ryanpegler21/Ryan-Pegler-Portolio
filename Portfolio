@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,311 +16,393 @@
     rel="stylesheet"
   />
 
-  <!-- INLINE STYLES: FULL 220-LINE STYLESHEET -->
   <style>
   /*──────────────────────────────────────────────────────────────────────────
     GLOBAL RESET & VARIABLES
   ──────────────────────────────────────────────────────────────────────────*/
-  *,
-  *::before,
-  *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
   :root {
     --clr-bg: #f0f2f5;
     --clr-text: #1a1a1a;
-    --clr-primary: #4aa0f7;
-    --clr-primary-dark: #2070c8;
+    --clr-primary: #0a1d3f;       /* navy */
+    --clr-primary-dark: #1D3A6E;  /* darker navy */
     --clr-alt-bg: #ffffff;
     --clr-alt-bg-2: #f8f9fa;
     --clr-muted: #6c757d;
-    --font-sans: 'Inter', sans-serif;
-    --font-heading: 'Poppins', sans-serif;
-    --transition: 0.3s ease-in-out;
+    --font-sans: 'Inter',sans-serif;
+    --font-heading: 'Poppins',sans-serif;
+    --transition: .3s ease-in-out;
   }
-  /* Dark mode overrides */
   body.dark {
     --clr-bg: #1a1a1a;
     --clr-text: #f0f2f5;
-    --clr-primary: #66c0ff;
-    --clr-primary-dark: #3a8ed8;
+    --clr-primary: #4F46E5;
+    --clr-primary-dark: #3a5ed8;
     --clr-alt-bg: #2a2a2a;
     --clr-alt-bg-2: #333333;
     --clr-muted: #aaaaaa;
   }
 
-  /*──────────────────────────────────────────────────────────────────────────
-    BASE STYLES
-  ──────────────────────────────────────────────────────────────────────────*/
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: var(--font-sans);
-    background-color: var(--clr-bg);
-    color: var(--clr-text);
-    line-height: 1.5;
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--font-sans);
+    background:var(--clr-bg);
+    color:var(--clr-text);
+    line-height:1.5;
   }
-  a {
-    text-decoration: none;
-    color: var(--clr-primary);
-    transition: color var(--transition);
+  a{
+    text-decoration:none;
+    color:var(--clr-primary);
+    transition:color var(--transition);
   }
-  a:hover { color: var(--clr-primary-dark); }
-  h1,h2,h3,h4,h5,h6 {
-    font-family: var(--font-heading);
-    color: var(--clr-text);
-    margin-bottom: 0.75rem;
+  a:hover{color:var(--clr-primary-dark);}
+  h1,h2,h3,h4,h5,h6{
+    font-family:var(--font-heading);
+    color:var(--clr-text);
+    margin-bottom:.75rem;
   }
-  p { margin-bottom: 1rem; }
-  .section {
-    padding: 4rem 1rem;
-    background: var(--clr-alt-bg);
+  p{margin-bottom:1rem;}
+  .section{padding:4rem 1rem;background:var(--clr-alt-bg);}
+  .section.alt-bg{background:var(--clr-alt-bg-2);}
+  .section-title{font-size:2rem;position:relative;display:inline-block;}
+    .section-title::after {
+      content: '';
+      display: block;
+      height: 3px;
+      width: 50px;
+      background: var(--clr-primary);
+      margin-top: .25rem;
+      animation: expandContract 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes expandContract {
+      from { width: 50px; }
+      to   { width: 100px; }
+    }
+  .btn{
+    display:inline-block;
+    font-family:var(--font-heading);
+    font-weight:500;
+    border:none;
+    cursor:pointer;
+    transition:background var(--transition),transform var(--transition);
   }
-  .section.alt-bg { background: var(--clr-alt-bg-2); }
-  .section-title {
-    font-size: 2rem;
-    position: relative;
-    display: inline-block;
+  .btn-primary{
+    background:var(--clr-primary);
+    color:#fff;
+    padding:.75rem 1.5rem;
+    border-radius:4px;
   }
-  .section-title::after {
-    content: '';
-    display: block;
-    height: 3px;
-    width: 50px;
-    background: var(--clr-primary);
-    margin-top: 0.25rem;
+  .btn-primary:hover{
+    background:var(--clr-primary-dark);
+    transform:translateY(-2px);
   }
-  .btn {
-    display: inline-block;
-    font-family: var(--font-heading);
-    font-weight: 500;
-    border: none;
-    cursor: pointer;
-    transition: background var(--transition), transform var(--transition);
-  }
-  .btn-primary {
-    background: var(--clr-primary);
-    color: #fff;
-    padding: 0.75rem 1.5rem;
-    border-radius: 4px;
-  }
-  .btn-primary:hover {
-    background: var(--clr-primary-dark);
-    transform: translateY(-2px);
-  }
+
+    .animated-lines-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .animated-lines-bg svg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0.25;
+    }
+
+    .animated-lines-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .animated-lines-bg svg {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+
 
   /*──────────────────────────────────────────────────────────────────────────
     NAVBAR
   ──────────────────────────────────────────────────────────────────────────*/
-  #navbar {
-    position: sticky;
-    top: 0;
-    background: var(--clr-alt-bg);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    z-index: 100;
+  #navbar{
+    position:sticky;
+    top:0;
+    background:var(--clr-alt-bg);
+    box-shadow:0 2px 4px rgba(0,0,0,0.1);
+    z-index:100;
   }
-  .nav-container {
-    max-width: 1100px;
-    margin: auto;
-    padding: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  .nav-container{
+    max-width:1100px;
+    margin:auto;
+    padding:1rem;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
   }
-  .brand {
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
-    color: var(--clr-text);
+  .brand{
+    font-family:var(--font-heading);
+    font-size:1.5rem;
+    color:var(--clr-text);
   }
-  .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 1rem;
+  .nav-links{
+    list-style:none;
+    display:flex;
+    gap:1rem;
   }
-  .nav-links a {
-    padding: 0.5rem;
-    border-radius: 4px;
-    transition: background var(--transition);
+  .nav-links a{
+    padding:.5rem;
+    border-radius:4px;
+    transition:background var(--transition);
   }
   .nav-links a:hover,
-  .nav-links a.active {
-    background: var(--clr-primary);
-    color: #fff;
+  .nav-links a.active{
+    background:var(--clr-primary);
+    color:#fff;
   }
-  #mobile-menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
+  #mobile-menu-toggle{
+    display:none;
+    background:none;
+    border:none;
+    font-size:1.5rem;
   }
-  @media (max-width: 768px) {
-    .nav-links {
-      position: absolute;
-      top: 60px;
-      right: 0;
-      background: var(--clr-alt-bg);
-      flex-direction: column;
-      width: 200px;
-      transform: translateX(100%);
-      transition: transform var(--transition);
-      box-shadow: -2px 0 5px rgba(0,0,0,0.1);
-      padding: 1rem;
+  @media (max-width:768px){
+    .nav-links{
+      position:absolute;
+      top:60px;
+      right:0;
+      background:var(--clr-alt-bg);
+      flex-direction:column;
+      width:200px;
+      transform:translateX(100%);
+      transition:transform var(--transition);
+      box-shadow:-2px 0 5px rgba(0,0,0,0.1);
+      padding:1rem;
     }
-    .nav-links.open { transform: translateX(0); }
-    #mobile-menu-toggle { display: block; cursor: pointer; }
+    .nav-links.open{transform:translateX(0);}
+    #mobile-menu-toggle{display:block;cursor:pointer;}
   }
 
   /*──────────────────────────────────────────────────────────────────────────
-    HERO
+    HERO + PROFILE PHOTO
   ──────────────────────────────────────────────────────────────────────────*/
-  #hero {
-    height: 100vh;
-    background: url('https://source.unsplash.com/1600x900/?stadium,field') center/cover no-repeat;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .hero-content {
-    text-align: center;
-    background: rgba(0,0,0,0.6);
-    padding: 2rem;
-    border-radius: 6px;
-    max-width: 700px;
-  }
-  .hero-title {
-    font-size: 3.5rem;
-    margin-bottom: 1rem;
-    color: #fff;
-  }
-  .hero-subtitle {
-    font-size: 1.25rem;
-    color: #ddd;
-  }
-  .cursor {
-    display: inline-block;
-    font-weight: bold;
-    animation: blink 0.7s infinite;
-  }
-  @keyframes blink {
-    0%,100%{opacity:1}50%{opacity:0}
-  }
+    #hero {
+      height: 100vh;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+
+    .hero-content {
+      text-align: center;
+      background: none;
+      padding: 2rem 2rem 0;
+      border-radius: 6px;
+      max-width: 900px;
+      position: relative;
+      z-index: 10;
+      top: -150px; /* ✅ move it up */
+    }
+
+    .hero-title{
+      font-size:3.5rem;
+      margin-bottom:1rem;
+      color:#fff;
+    }
+    .hero-subtitle{
+      font-size:1.25rem;
+      color:#ddd;
+    }
+    .cursor{
+      display:inline-block;
+      font-weight:bold;
+      animation:blink .7s infinite;
+    }
+    @keyframes blink{
+      0%,100%{opacity:1;}
+      50%{opacity:0;}
+    }
+
+
+    #profile-photo {
+      display: block;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid var(--clr-alt-bg);
+      margin: 10rem auto 1.5rem;
+      box-shadow: 0 0 20px rgba(74, 110, 255, 0.4);
+      animation: float-glow 4s ease-in-out infinite;
+      position: relative;
+      z-index: 10000;
+    }
+
+
 
   /*──────────────────────────────────────────────────────────────────────────
-    CARDS CONTAINER (Experience & Projects)
+    CARDS & SCHOOLS
   ──────────────────────────────────────────────────────────────────────────*/
-  .cards-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
+  .cards-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:1.5rem;
+    margin-top:2rem;
   }
-  .card {
-    background: var(--clr-alt-bg);
-    border-radius: 8px;
-    padding: 1.5rem;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    transition: transform var(--transition), box-shadow var(--transition);
+  .card{
+    background:var(--clr-alt-bg);
+    border-radius:8px;
+    padding:1.5rem;
+    box-shadow:0 2px 6px rgba(0,0,0,0.1);
+    transition:transform var(--transition),box-shadow var(--transition);
   }
-  .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  .card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 8px 16px rgba(0,0,0,0.2);
   }
-  .card h3 { margin-bottom:0.75rem; font-size:1.25rem }
-  .card p { color:var(--clr-muted); margin-bottom:1rem }
-  .card span { font-size:0.9rem; color:var(--clr-muted) }
+  .card h3{margin-bottom:.75rem;font-size:1.25rem;}
+  .card p{color:var(--clr-muted);margin-bottom:1rem;}
+  .card span{font-size:.9rem;color:var(--clr-muted);}
+
+  .school-logo{
+    display:block;
+    width:100px;
+    height:100px;
+    object-fit:contain;
+    margin:0 auto 1rem;
+  }
 
   /*──────────────────────────────────────────────────────────────────────────
     SKILLS LIST
   ──────────────────────────────────────────────────────────────────────────*/
-  .skills-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px,1fr));
-    gap:1rem;
-    margin-top:2rem;
-  }
-  .skills-list li {
-    background: var(--clr-alt-bg);
-    padding:.75rem;
-    border-radius:4px;
-    text-align:center;
-    font-weight:500;
-  }
+    .skills-scroll-container {
+      overflow: hidden;
+      white-space: nowrap;
+      margin-top: 2rem;
+    }
+
+    .skills-list {
+      display: flex;
+      gap: 1rem;
+      list-style: none; /* ⛔ removes the white dots */
+      padding: 0;
+      margin: 0;
+      animation: scroll-left 25s linear infinite;
+      will-change: transform;
+    }
+
+    .skills-list li {
+      background: var(--clr-alt-bg);
+      padding: .75rem 1.5rem;
+      border-radius: 4px;
+      text-align: center;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .skills-list:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes scroll-left {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
 
   /*──────────────────────────────────────────────────────────────────────────
     CONTACT
   ──────────────────────────────────────────────────────────────────────────*/
-  .contact-container {
+  .contact-container{
     display:flex;
     gap:2rem;
     flex-wrap:wrap;
     margin-top:2rem;
   }
-  .contact-form {
+  .contact-form{
     flex:1;
     display:flex;
     flex-direction:column;
     gap:1rem;
   }
-  .input-field {
+  .input-field{
     padding:.75rem;
     border:1px solid var(--clr-muted);
     border-radius:4px;
-    background: var(--clr-alt-bg);
-    color: var(--clf-text);
+    background:var(--clr-alt-bg);
+    color:var(--clr-text);
   }
-  .input-field:focus {
-    border-color: var(--clr-primary);
-    outline: none;
+  .input-field:focus{
+    border-color:var(--clr-primary);
+    outline:none;
   }
-  .contact-info {
-    flex:1;
-    background: var(--clr-alt-bg);
-    padding:1.5rem;
-    border-radius:8px;
-    box-shadow:0 2px 6px rgba(0,0,0,0.1);
-  }
-  .contact-info p {
+    .contact-info {
+      flex:1;
+      background:var(--clr-alt-bg);
+      padding:1.5rem;
+      border-radius:8px;
+      box-shadow:0 2px 6px rgba(0,0,0,0.1);
+    }
+  .contact-info p{
     margin-bottom:1rem;
     font-weight:500;
   }
-  .contact-info a { color: var(--clr-primary); }
+  .contact-info a{color:var(--clr-primary);}
 
   /*──────────────────────────────────────────────────────────────────────────
     FOOTER
   ──────────────────────────────────────────────────────────────────────────*/
-  .footer {
+  .footer{
     text-align:center;
     padding:2rem 1rem;
-    background: var(--clr-alt-bg-2);
-    color: var(--clr-muted);
-    font-size: 0.9rem;
+    background:var(--clr-alt-bg-2);
+    color:var(--clr-muted);
+    font-size:.9rem;
   }
 
   /*──────────────────────────────────────────────────────────────────────────
     FADE-UP ANIMATIONS
   ──────────────────────────────────────────────────────────────────────────*/
-  @keyframes fadeInUp {
-    from { opacity:0; transform:translateY(20px) }
-    to { opacity:1; transform:translateY(0) }
-  }
-  .fade-up {
-    opacity:0;
-    transform:translateY(20px);
-  }
-  .fade-up.visible {
+  .fade-up{opacity:0;transform:translateY(20px);}
+  .fade-up.visible{
     animation:fadeInUp .8s ease-out forwards;
+  }
+  @keyframes fadeInUp{
+    from{opacity:0;transform:translateY(20px);}
+    to{opacity:1;transform:translateY(0);}
   }
 
   /*──────────────────────────────────────────────────────────────────────────
     BACK TO TOP & THEME TOGGLE
   ──────────────────────────────────────────────────────────────────────────*/
-  #back-to-top,
-  #theme-toggle {
+  #back-to-top,#theme-toggle{
     position:fixed;
     right:1rem;
-    background: var(--clr-primary);
+    background:var(--clr-primary);
     color:#fff;
     border:none;
     padding:.5rem;
@@ -326,24 +410,57 @@
     cursor:pointer;
     font-size:1.25rem;
     z-index:200;
-    transition: background var(--transition), transform var(--transition);
+    transition:background var(--transition),transform var(--transition);
   }
-  #back-to-top:hover,
-  #theme-toggle:hover {
-    background: var(--clf-primary-dark);
-    transform: scale(1.1);
+  #back-to-top:hover,#theme-toggle:hover{
+    background:var(--clr-primary-dark);
+    transform:scale(1.1);
   }
-  #back-to-top { bottom:1rem }
-  #theme-toggle { bottom:4rem }
+  #back-to-top{bottom:1rem;}
+  #theme-toggle{bottom:4rem;}
 
-  /*──────────────────────────────────────────────────────────────────────────
-    RESPONSIVE
-  ──────────────────────────────────────────────────────────────────────────*/
-  @media (max-width: 640px) {
-    .hero-title { font-size: 2.5rem }
-    .cards-container { grid-template-columns: 1fr }
-    .contact-container { flex-direction: column }
+  @media (max-width:640px){
+    .hero-title{font-size:2.5rem;}
+    .cards-container{grid-template-columns:1fr;}
+    .contact-container{flex-direction:column;}
   }
+    .expandable-card {
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .expandable-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .expandable-card .description {
+      margin-top: 1rem;
+      font-size: 0.95rem;
+      color: var(--clr-muted);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, opacity 0.3s ease;
+      opacity: 0;
+    }
+
+    .expandable-card.expanded .description {
+      max-height: 300px;
+      opacity: 1;
+    }
+
+    .expandable-card::after {
+      content: 'Click to Learn More';
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      font-size: 0.75rem;
+      color: var(--clr-muted);
+      font-style: italic;
+    }
+
+
   </style>
 </head>
 
@@ -361,20 +478,89 @@
       <ul class="nav-links">
         <li><a href="#hero">Home</a></li>
         <li><a href="#about">About</a></li>
+        <li><a href="#education">Education</a></li>
         <li><a href="#experience">Experience</a></li>
         <li><a href="#projects">Projects</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-      <a href="Ryan_Pegler_Resume.pdf" class="btn btn-primary" download>Resume</a>
+      <a href="Ryan_Pegler_Resume.pdf" class="btn btn-primary" download>
+        📄 Resume
+      </a>
       <button id="mobile-menu-toggle" aria-label="Toggle Menu">☰</button>
     </div>
   </nav>
 
   <!-- HERO -->
   <header id="hero">
+    <div class="animated-lines-bg" aria-hidden="true">
+      <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+        <path fill="none" stroke="#FFFFFFF" stroke-width="1.5" opacity="0.6">
+          <animate attributeName="d" dur="20s" repeatCount="indefinite"
+            values="
+              M0,160 C360,100 1080,220 1440,160;
+              M0,140 C360,180 1080,80 1440,140;
+              M0,160 C360,100 1080,220 1440,160
+            "
+          />
+        </path>
+        <path fill="none" stroke="white" stroke-width="1.5" opacity="0.6">
+          <animate attributeName="d" dur="18s" repeatCount="indefinite"
+            values="
+              M0,180 C480,240 960,80 1440,180;
+              M0,200 C480,160 960,240 1440,200;
+              M0,180 C480,240 960,80 1440,180
+            "
+          />
+        </path>
+        <path fill="none" stroke="white" stroke-width="1.5" opacity="0.6">
+          <animate attributeName="d" dur="25s" repeatCount="indefinite"
+            values="
+              M0,130 C400,90 1040,190 1440,130;
+              M0,150 C400,130 1040,110 1440,150;
+              M0,130 C400,90 1040,190 1440,130
+            "
+          />
+        </path>
+        <path fill="none" stroke="white" stroke-width="1.5" opacity="0.6">
+          <animate attributeName="d" dur="18s" repeatCount="indefinite"
+            values="
+              M0,160 C480,240 960,80 1440,180;
+              M0,100 C480,160 960,240 1440,200;
+              M0,160 C480,240 960,80 1440,180
+            "
+          />
+          </path>
+          <path fill="none" stroke="white" stroke-width="1.5" opacity="0.6">
+            <animate attributeName="d" dur="18s" repeatCount="indefinite"
+              values="
+                M0,300 C480,240 960,80 1440,180;
+                M0,100 C480,160 960,240 1440,200;
+                M0,30 C480,240 960,80 1440,180
+              "
+            />
+            </path>
+            <path fill="none" stroke="white" stroke-width="1.5" opacity="0.6">
+              <animate attributeName="d" dur="18s" repeatCount="indefinite"
+                values="
+                  M0,500 C480,240 960,80 1440,180;
+                  M0,100 C480,160 960,240 1440,200;
+                  M0,500 C480,240 960,80 1440,180
+                "
+              />
+        </path>
+      </svg>
+    </div>
+
     <div class="hero-content fade-up">
-      <h1 class="hero-title">Hey, I’m Ryan.</h1>
+
+
+      <img
+        id="profile-photo"
+        src="https://i.postimg.cc/ZqjnqDZ6/Linkedin-Profile.jpg"
+        alt="Profile Photo"
+      />
+      <h1 class="hero-title">Hello, I'm Ryan Pegler.</h1>
       <p class="hero-subtitle">
         <span id="typed-text"></span><span class="cursor">|</span>
       </p>
@@ -385,40 +571,138 @@
     <!-- ABOUT -->
     <section id="about" class="section fade-up">
       <h2 class="section-title">About Me</h2>
-      <p>I’m a senior at UIUC studying Finance &amp; Information Systems. I founded <strong>OpenField</strong>, a platform bridging athletes and NIL opportunities. I combine data, tech, and finance to deliver real impact.</p>
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 2rem;">
+        <img
+          src="https://i.postimg.cc/JhcR0xD3/Ryan-Pegler-Photo.jpg"
+          alt="Ryan Pegler"
+          style="width: 180px; height: 180px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 10px rgba(0,0,0,0.1);"
+        />
+        <p style="flex: 1; min-width: 250px;">
+          I'm a senior at the University of Illinois at Urbana Champaign studying Finance &amp; Information Systems within the Gies College of Business. I have strong interests in finance, data analytics, and technology, and I am devoted to driving change through my skills.
+          I've founded <strong>OpenField</strong>, a platform bridging under-represented athletes and NIL opportunities. I also have experience in invetment analysis and equity research, through my internship and <strong>Prairie Road Partners</strong>. I have hands-on experience with blockchain technology and portfolio management through organizations like <strong>Illini Blockchain</strong>. I am currently looking for opportunities to gain more hands-on experience in investment management, data analytics, and related roles.
+      </div>
+    </section>
+
+
+    <!-- EDUCATION -->
+    <!-- ─── EDUCATION (replace your existing #education section) ─── -->
+    <section id="education" class="section alt-bg fade-up">
+      <h2 class="section-title">Education</h2>
+      <div class="cards-container">
+        <div class="card">
+          <img
+            class="school-logo"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/University_of_Illinois_seal.svg/1200px-University_of_Illinois_seal.svg.png"
+            alt="UIUC Logo"
+          />
+          <h3>University of Illinois Urbana-Champaign</h3>
+          <span>Gies College of Business.</span>
+          <span>B.S. Finance &amp; Information Systems, Class of 2026</span>
+        </div>
+        <div class="card">
+          <img
+            class="school-logo"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Universit%C3%A0_Bocconi%2C_coat_of_arms.png/1200px-Universit%C3%A0_Bocconi%2C_coat_of_arms.png"
+            alt="Bocconi University Logo"
+          />
+          <h3>Università Bocconi</h3>
+          <span>Milan, Italy.</span>
+          <span>Exchange Semester, Jan 2025 – May 2025</span>
+        </div>
+      </div>
     </section>
 
     <!-- EXPERIENCE -->
     <section id="experience" class="section alt-bg">
       <h2 class="section-title">Experience</h2>
       <div class="cards-container">
-        <div class="card fade-up"><h3>Prairie Road Partners</h3><p>Private Equity Intern</p><span>Summer 2024</span></div>
-        <div class="card fade-up"><h3>OpenField</h3><p>Founder &amp; Product Lead</p><span>2023 – Present</span></div>
-        <div class="card fade-up"><h3>Illini Blockchain</h3><p>Investment Analyst</p><span>Jan 2024 – May 2024</span></div>
-        <div class="card fade-up"><h3>HEDGE</h3><p>Equities &amp; Options Analyst</p><span>Jan 2024 – May 2024</span></div>
+
+        <div class="card fade-up expandable-card" onclick="toggleDescription(this)">
+          <img class="school-logo" src="https://sdn.signalhire.co/storage/company/a5b5/7b0d/fd98/5b7b/5df4/a4b7/8139/a6f7.webp" alt="PRP Logo" />
+          <h3>Prairie Road Partners</h3>
+          <p>Private Equity Intern</p>
+          <span>Summer 2024</span>
+          <div class="description hidden">
+            <strong>A lower-middle market private equity search fund focused on sourcing, acquiring, and operating one high-potential business in North America. </strong>
+            Conducted deep-dive proprietary outreach to over 1,500 companies in verticals like SaaS, healthcare services, and niche B2B markets. Evaluated acquisition targets using market sizing, growth trends, and margin profiles. Built and maintained sourcing pipelines through tools like HubSpot and Excel trackers.
+          </div>
+        </div>
+
+        <div class="card fade-up expandable-card" onclick="toggleDescription(this)">
+          <img class="school-logo" src="https://media.licdn.com/dms/image/v2/D560BAQEcms0Siu_3oQ/company-logo_100_100/company-logo_100_100/0/1724739850452?e=1755129600&v=beta&t=0qhwn59LRv2hYqSg6ncyfaMpcunQWrePisZfhjd_YbY" alt="OpenField Logo" />
+          <h3>OpenField</h3>
+          <p>Founder & Developer</p>
+          <span>2024 – Present</span>
+          <div class="description hidden">
+            <strong>A platform bridging underrepresented college athletes with NIL (Name, Image, Likeness) opportunities and higher-level exposure through personalized athlete profiles.</strong>
+            Founded and led product development for a web platform connecting underrepresented athletes to hundreds of local brands and scouts.
+            Designed and coded core features including athlete bios, film libraries, sponsorship tracking, and verification tools.
+          </div>
+        </div>
+
+        <div class="card fade-up expandable-card" onclick="toggleDescription(this)">
+          <img class="school-logo" src="https://developers.moralis.com/wp-content/uploads/web3wiki/1728-illini-blockchain/644ad8689fe9eb3f397f7301_8P5C0NVr_400x400.jpeg" alt="Illini Blockchain Logo" />
+          <h3>Illini Blockchain</h3>
+          <p>Investment Analyst</p>
+          <span>Jan 2024 – May 2024</span>
+          <div class="description hidden">
+            <strong>Illini Blockchain is a student-led digital asset investment fund that operates with real capital and professional research standards.</strong>
+            Analyzed blockchain-based companies and several models to assess investment potential.
+            Conducted due diligence on DeFi, NFT, and infrastructure projects, focusing on use cases and revenue mechanisms.
+          </div>
+        </div>
+
+        <div class="card fade-up expandable-card" onclick="toggleDescription(this)">
+          <img class="school-logo" src="https://media.licdn.com/dms/image/v2/C560BAQGukb-QZQiBQA/company-logo_100_100/company-logo_100_100/0/1660751364234/hedge_uiuc_logo?e=1755129600&v=beta&t=CCE1_AhsJXeEiMM_L3JZuB42VA5Ko14fRNArT08xiIA" alt="HEDGE Logo" />
+          <h3>HEDGE</h3>
+          <p>Equities & Options Analyst</p>
+          <span>Jan 2024 – May 2024</span>
+          <div class="description hidden">
+            <strong>A selective, student-run investment group focused on equities, derivatives, and alternative assets through technical and fundamental research.</strong>
+            Built weekly reports on U.S. equities using technical indicators, macroeconomic catalysts, and earnings forecasts.
+Conducted deep-dive option chain analysis to structure risk-managed trades.
+Presented investment theses and trade ideas in front of senior members for peer review.
+          </div>
+        </div>
+
       </div>
     </section>
+
+
 
     <!-- PROJECTS -->
     <section id="projects" class="section fade-up">
       <h2 class="section-title">Projects</h2>
       <div class="cards-container">
-        <div class="card"><h3>OpenField Platform</h3><p>NIL marketplace for Division II/III athletes—connecting athletes to local businesses.</p></div>
-        <div class="card"><h3>NBA Boom/Bust Predictor</h3><p>Draft prospect success model using BPM, ORtg, DRtg, age-adjusted metrics.</p></div>
-        <div class="card"><h3>StockPicks</h3><p>Simplified portfolio builder tailored by risk, sentiment, and sector preferences.</p><a href="https://medium.com/@ryanpegler21/stockpicks-simplified-investment-portfolio-management-9e09154b9460" class="link" target="_blank">Read Article →</a></div>
+        <div class="card"><h3>OpenField Platform</h3><p>OpenField is a sports-tech platform connecting overlooked college athletes—especially from Division II and III programs—with local businesses for NIL deals, while helping them gain exposure through personalized bios, highlights, and stat showcases. Our mission is to bridge the gap between talent and opportunity through modern tech and data.</p></div>
+        <div class="card"><h3>NBA Boom/Bust Predictor</h3><p>The NBA Boom or Bust Predictor is a data-driven project that analyzes draft prospects using advanced metrics like BPM, offensive/defensive ratings, and age to forecast their NBA potential. It helps teams and fans assess which players are likely to become stars—or fall short.</p></div>
+        <div class="card"><h3>StockPicks</h3><p>StockPicks is a simplified investment portfolio tool that tailors stock selections based solely on an individual’s risk tolerance, market outlook, and sector preferences. Inspired by consumer-friendly platforms, it aims to make smart investing accessible to everyday users.</p><a href="https://medium.com/@ryanpegler21/stockpicks-simplified-investment-portfolio-management-9e09154b9460" class="link" target="_blank">Read Article →</a></div>
       </div>
     </section>
 
     <!-- SKILLS -->
     <section id="skills" class="section alt-bg fade-up">
       <h2 class="section-title">Skills &amp; Tools</h2>
-      <ul class="skills-list">
-        <li>Financial Modeling &amp; Valuation</li>
-        <li>Data Analysis &amp; Visualization</li>
-        <li>Basic HTML/CSS/JS &amp; React</li>
-        <li>Google Analytics &amp; Tableau</li>
-        <li>SQL &amp; Python (learning)</li>
-        <li>Figma &amp; UX Design Principles</li>
+      <div class="skills-scroll-container">
+        <ul class="skills-list">
+          <li>Financial Modeling & Valuation</li>
+          <li>Data Analysis & Visualization</li>
+          <li>Microsoft Suite</li>
+          <li>Market Research & Industry Analysis</li>
+          <li>Competitor Benchmarking</li>
+          <li>Market Research & Industry Analysis</li>
+          <li>SQL & Python (learning)</li>
+
+          <!-- duplicate for smooth loop -->
+          <li>Financial Modeling & Valuation</li>
+          <li>Data Analysis & Visualization</li>
+          <li>Basic HTML/CSS/JS & React</li>
+          <li>Google Analytics & Tableau</li>
+          <li>SQL & Python (learning)</li>
+          <li>Figma & UX Design Principles</li>
+        </ul>
+      </div>
+
       </ul>
     </section>
 
@@ -433,8 +717,21 @@
           <button type="submit" class="btn btn-primary">Send Message</button>
         </form>
         <div class="contact-info">
-          <p>📧 <a href="mailto:ryanpegler21@gmail.com">ryanpegler21@gmail.com</a></p>
-          <p>🔗 <a href="https://www.linkedin.com/in/ryanpegler" target="_blank">linkedin.com/in/ryanpegler</a></p>
+          <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+            <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email" width="40" height="40">
+            <div>
+              <p style="margin: 0; font-weight: bold;">Email</p>
+              <a href="mailto:ryanpegler21@gmail.com">ryanpegler21@gmail.com</a>
+            </div>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" width="40" height="40">
+            <div>
+              <p style="margin: 0; font-weight: bold;">LinkedIn</p>
+              <a href="https://www.linkedin.com/in/ryanpegler" target="_blank">linkedin.com/in/ryanpegler</a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -445,7 +742,6 @@
     <p>© 2025 Ryan Pegler. All rights reserved.</p>
   </footer>
 
-  <!-- INLINE SCRIPT: FULL 200-LINE INTERACTIONS -->
   <script>
   // Selectors
   const sections = document.querySelectorAll('section');
@@ -480,31 +776,51 @@
 
   // Fade-up
   document.querySelectorAll('.fade-up').forEach(el => {
-    new IntersectionObserver(entries => {
+    const obs = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (e.isIntersecting) {
           e.target.classList.add('visible');
-          e.target._observer.disconnect();
+          obs.disconnect();
         }
       });
-    }, { threshold:0.2 })
-    .observe(el);
+    }, { threshold:0.2 });
+    obs.observe(el);
   });
 
   // Typed text
-  const phrases = ['Finance & Tech Enthusiast.','Sports Analytics Buff.','Product Builder.','Always Learning.'];
+  const phrases = ['Rising Senior at the University of Illinois','Finance & Information Systems Major','Founder & Leader','Always Learning.'];
   let charIndex=0, phraseIndex=0;
-  function type(){let cur=phrases[phraseIndex];if(charIndex<cur.length){typedTextEl.textContent+=cur[charIndex++];setTimeout(type,100);}else setTimeout(erase,1500);}
-  function erase(){if(charIndex>0){typedTextEl.textContent=typedTextEl.textContent.slice(0,-1);charIndex--;setTimeout(erase,50);}else{phraseIndex=(phraseIndex+1)%phrases.length;setTimeout(type,500);}}
+  function type(){
+    let cur=phrases[phraseIndex];
+    if(charIndex<cur.length){
+      typedTextEl.textContent+=cur[charIndex++];
+      setTimeout(type,100);
+    } else setTimeout(erase,1500);
+  }
+  function erase(){
+    if(charIndex>0){
+      typedTextEl.textContent=typedTextEl.textContent.slice(0,-1);
+      charIndex--;
+      setTimeout(erase,50);
+    } else {
+      phraseIndex=(phraseIndex+1)%phrases.length;
+      setTimeout(type,500);
+    }
+  }
   document.addEventListener('DOMContentLoaded',()=>setTimeout(type,1000));
 
   // Back to top
-  window.addEventListener('scroll',()=>{backToTopBtn.style.display = window.scrollY>window.innerHeight/2?'block':'none';});
+  window.addEventListener('scroll',()=>{
+    backToTopBtn.style.display = window.scrollY>window.innerHeight/2?'block':'none';
+  });
   backToTopBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
 
   // Dark mode
   (function(){
-    if(localStorage.getItem('theme')==='dark') document.body.classList.add('dark'),themeToggleBtn.textContent='☀️';
+    if(localStorage.getItem('theme')==='dark'){
+      document.body.classList.add('dark');
+      themeToggleBtn.textContent='☀️';
+    }
     themeToggleBtn.onclick = ()=>{
       document.body.classList.toggle('dark');
       const dark=document.body.classList.contains('dark');
@@ -517,14 +833,27 @@
   mobileMenuToggle.addEventListener('click',()=>navLinksContainer.classList.toggle('open'));
 
   // Contact form (demo)
-  document.querySelector('.contact-form').onsubmit=e=>{e.preventDefault();alert('Thanks for your message!');e.target.reset();};
+  document.querySelector('.contact-form').onsubmit=e=>{
+    e.preventDefault();
+    alert('Thanks for your message!');
+    e.target.reset();
+  };
 
   // Parallax hero
-  window.addEventListener('scroll',()=>document.getElementById('hero')
-    .style.backgroundPositionY = window.scrollY*0.5+'px');
+  window.addEventListener('scroll',()=>{
+    document.getElementById('hero')
+      .style.backgroundPositionY = window.scrollY*0.5+'px';
+  });
+    function toggleDescription(card) {
+      card.classList.toggle('expanded');
+    }
   </script>
 </body>
 </html>
+
+
+
+
 
 
 
