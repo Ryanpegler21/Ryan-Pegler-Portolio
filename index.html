@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fundamental</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --gold-light: #ffe8a3;
+            --dark: #181818;
+            --darker: #111;
+            --silver: #e0e0e0;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, var(--darker) 70%, var(--gold) 100%);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        header {
+            text-align: center;
+            padding: 5rem 1rem 2rem 1rem;
+            background: linear-gradient(90deg, var(--darker) 70%, var(--gold) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .title {
+            font-size: 5rem;
+            font-weight: 900;
+            letter-spacing: 5px;
+            background: linear-gradient(90deg, var(--gold-light) 40%, var(--gold) 60%, #fff 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+            animation: shine 3s linear infinite;
+        }
+        @keyframes shine {
+            0% { background-position: -100% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .tagline {
+            font-size: 1.6rem;
+            color: var(--silver);
+            margin-top: 1rem;
+            letter-spacing: 2px;
+        }
+        .container {
+            max-width: 950px;
+            margin: 2rem auto 4rem auto;
+            background: rgba(24,24,24,0.97);
+            color: #fff;
+            padding: 2.7rem 2.5rem 2.5rem 2.5rem;
+            border-radius: 2.2rem;
+            box-shadow: 0 8px 30px #0007, 0 2px 6px #d4af3722;
+            animation: fadeInSlide 1s ease;
+        }
+        @keyframes fadeInSlide {
+            from { opacity: 0; transform: translateY(40px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        label {
+            font-size: 1.1rem;
+            margin-top: 1.6rem;
+            display: block;
+            font-weight: 700;
+            color: var(--gold);
+            transition: color 0.3s;
+        }
+        input, select {
+            width: 100%;
+            padding: 1rem;
+            margin-top: 0.5rem;
+            background: #222;
+            border: 1.5px solid var(--gold);
+            border-radius: 9px;
+            font-size: 1.15rem;
+            color: #fff;
+            margin-bottom: 1rem;
+            transition: border 0.2s, box-shadow 0.2s;
+        }
+        input:focus, select:focus {
+            border: 2.5px solid var(--gold-light);
+            outline: none;
+            box-shadow: 0 0 0 2px var(--gold-light);
+        }
+        input[type="range"] {
+            accent-color: var(--gold);
+            background: #fff;
+            margin-bottom: 0.2rem;
+        }
+        .input-group {
+            margin-bottom: 1.8rem;
+        }
+        button {
+            margin-top: 1.6rem;
+            background: linear-gradient(90deg, var(--gold) 60%, var(--gold-light) 100%);
+            color: #181818;
+            border: none;
+            padding: 1.1rem 2.3rem;
+            font-size: 1.25rem;
+            font-weight: 800;
+            cursor: pointer;
+            border-radius: 9px;
+            box-shadow: 0 2px 8px #d4af3740;
+            transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.08s;
+            position: relative;
+            overflow: hidden;
+        }
+        button:hover {
+            background: #181818;
+            color: var(--gold);
+            box-shadow: 0 4px 16px #d4af3766;
+            border: 2px solid var(--gold);
+            transform: translateY(-2px) scale(1.03);
+        }
+        button:active {
+            transform: scale(0.98);
+        }
+        .gold-shimmer {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(120deg, transparent 0%, #fff7 50%, transparent 100%);
+            opacity: 0.55;
+            pointer-events: none;
+            animation: shimmer 1.6s linear infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: -180px 0; }
+            100% { background-position: 180px 0; }
+        }
+        .sector-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            margin-top: 1.2rem;
+        }
+        .sector-button {
+            background: #fff;
+            color: #181818;
+            border: 2px solid var(--gold);
+            padding: 0.95rem 1.5rem;
+            font-size: 1.08rem;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 2px 6px #d4af3722;
+            transition: background 0.3s, color 0.3s, border 0.25s, transform 0.08s;
+            position: relative;
+        }
+        .sector-button.selected, .sector-button:active {
+            background: linear-gradient(90deg, var(--gold) 70%, #fff 100%);
+            color: #232526;
+            font-weight: 900;
+            border: 2.5px solid #fff;
+            transform: scale(1.05);
+        }
+        .sector-button:hover {
+            background: var(--gold-light);
+            color: #181818;
+        }
+        .sector-tooltip {
+            display: none;
+            position: absolute;
+            top: -2.4rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gold);
+            color: #222;
+            font-size: 0.95rem;
+            padding: 6px 15px;
+            border-radius: 8px;
+            z-index: 9;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+        .sector-button:hover .sector-tooltip {
+            display: block;
+        }
+        .result, .scenario-section, .download-section, .analysis-section {
+            margin-top: 2.5rem;
+            background: rgba(34,34,34,0.98);
+            border-radius: 15px;
+            border: 1.5px solid var(--gold);
+            box-shadow: 0 2px 10px #d4af3711;
+            padding: 1.7rem;
+            animation: fadeInSlide 0.9s;
+        }
+        .result { border-left: 7px solid var(--gold); }
+        h2, h3 {
+            color: var(--gold);
+            margin-top: 0;
+        }
+        ::placeholder {
+            color: #aaa;
+            opacity: 1;
+        }
+        .tooltip {
+            display: inline-block;
+            position: relative;
+        }
+        .tooltip .tooltiptext {
+            display: none;
+            background: var(--gold);
+            color: #222;
+            text-align: left;
+            border-radius: 7px;
+            padding: 6px 13px;
+            position: absolute;
+            z-index: 1;
+            font-size: 0.95rem;
+            left: 105%; top: 0;
+            min-width: 200px;
+        }
+        .tooltip:hover .tooltiptext {
+            display: block;
+        }
+        .progress-bar-bg {
+            background: #333;
+            border-radius: 8px;
+            width: 100%;
+            height: 16px;
+            margin: 14px 0 16px 0;
+        }
+        .progress-bar {
+            background: linear-gradient(90deg, var(--gold), var(--gold-light));
+            height: 100%;
+            width: 0;
+            border-radius: 8px;
+            transition: width 1.2s cubic-bezier(0.7,0,0.4,1);
+        }
+        .divscore {
+            font-weight: 800;
+            color: var(--gold-light);
+            margin-top: 1.4rem;
+        }
+        /* Floating help button */
+        .help-fab {
+            position: fixed;
+            bottom: 36px;
+            right: 36px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(120deg, var(--gold) 75%, #fff 100%);
+            color: #111;
+            font-size: 2.1rem;
+            box-shadow: 0 3px 16px #0007;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            cursor: pointer;
+            transition: background 0.22s;
+        }
+        .help-fab:hover {
+            background: #111;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+        }
+        /* Floating chat box */
+        .chatbot {
+            display: none;
+            position: fixed;
+            bottom: 110px;
+            right: 40px;
+            width: 340px;
+            max-width: 90vw;
+            background: #232526;
+            border: 2px solid var(--gold);
+            border-radius: 14px;
+            box-shadow: 0 6px 24px #000a;
+            z-index: 1000;
+            padding: 0;
+            overflow: hidden;
+            flex-direction: column;
+        }
+        .chatbot-header {
+            background: var(--gold);
+            color: #181818;
+            font-weight: bold;
+            padding: 13px 20px;
+            font-size: 1.2rem;
+            border-bottom: 2px solid #fff;
+        }
+        .chatbot-messages {
+            max-height: 240px;
+            overflow-y: auto;
+            padding: 13px;
+            font-size: 1.08rem;
+        }
+        .chatbot-input {
+            border: none;
+            width: 80%;
+            font-size: 1.04rem;
+            padding: 10px 7px;
+            border-radius: 7px 0 0 7px;
+            outline: none;
+        }
+        .chatbot-send {
+            background: var(--gold);
+            border: none;
+            color: #181818;
+            font-size: 1.14rem;
+            font-weight: bold;
+            padding: 10px 13px;
+            border-radius: 0 7px 7px 0;
+            cursor: pointer;
+            transition: background 0.23s;
+        }
+        .chatbot-footer {
+            display: flex;
+            border-top: 1.5px solid var(--gold);
+        }
+        .close-chat {
+            position: absolute;
+            top: 4px; right: 9px;
+            background: none;
+            color: #181818;
+            border: none;
+            font-size: 1.45rem;
+            cursor: pointer;
+        }
+        /* Animated graph */
+        #performanceGraph {
+            width: 100%; max-width: 700px; height: 230px; background: #222; border-radius: 12px; margin-top: 15px;
+            display: block;
+        }
+        /* Responsive */
+        @media (max-width: 700px) {
+            .container { padding: 1.1rem; }
+            .title { font-size: 2.4rem; }
+            .tagline { font-size: 1.08rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="title">Fundamental</div>
+    <div class="tagline">Your AI-Enhanced, Personalized Investment Toolkit</div>
+</header>
+
+<div class="container" id="mainContainer">
+    <form id="portfolioForm" autocomplete="off">
+        <div class="input-group">
+            <label for="budget">Investment Budget (USD):</label>
+            <input type="number" id="budget" name="budget" min="100" placeholder="Enter your budget (min $100)" required>
+        </div>
+        <div class="input-group">
+            <label for="marketSentiment">Market Sentiment:
+                <span class="tooltip">&#9432;
+                    <span class="tooltiptext">Your outlook on the overall market. Positive = bullish, Neutral = uncertain, Negative = bearish.</span>
+                </span>
+            </label>
+            <select id="marketSentiment" name="marketSentiment">
+                <option value="positive">Positive</option>
+                <option value="neutral" selected>Neutral</option>
+                <option value="negative">Negative</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label>Favorite Sectors:</label>
+            <div class="sector-buttons" id="sectorButtons">
+                <button type="button" class="sector-button" data-sector="Tech">Tech
+                    <div class="sector-tooltip">Apple, Nvidia, Google, Microsoft</div>
+                </button>
+                <button type="button" class="sector-button" data-sector="Healthcare">Healthcare
+                    <div class="sector-tooltip">Pfizer, JNJ, Eli Lilly</div>
+                </button>
+                <button type="button" class="sector-button" data-sector="Energy">Energy
+                    <div class="sector-tooltip">Exxon, Chevron, NextEra</div>
+                </button>
+                <button type="button" class="sector-button" data-sector="Finance">Finance
+                    <div class="sector-tooltip">JPMorgan, Goldman, BAC</div>
+                </button>
+                <button type="button" class="sector-button" data-sector="Consumer Goods">Consumer Goods
+                    <div class="sector-tooltip">Procter & Gamble, Coke</div>
+                </button>
+                <button type="button" class="sector-button" data-sector="Utilities">Utilities
+                    <div class="sector-tooltip">Duke, Constellation</div>
+                </button>
+                <button type="button" class="sector-button" data-sector="Crypto">Crypto
+                    <div class="sector-tooltip">Bitcoin, Ethereum</div>
+                </button>
+                <button type="button" class="sector-button" data-sector="Meme Stocks">Meme Stocks
+                    <div class="sector-tooltip">GameStop, AMC</div>
+                </button>
+            </div>
+        </div>
+        <div class="input-group">
+            <label for="riskAversion">How comfortable are you with risk?</label>
+            <input type="range" id="riskAversion" name="riskAversion" min="1" max="10" value="5">
+            <div id="riskLevelDisplay">Risk Tolerance: Moderate</div>
+        </div>
+        <div class="input-group">
+            <label for="timeHorizon">Investment Time Horizon:
+                <span class="tooltip">&#9432;
+                    <span class="tooltiptext">Short-term (1-3 years), Long-term (5+ years).</span>
+                </span>
+            </label>
+            <select id="timeHorizon" name="timeHorizon">
+                <option value="short-term">Short-Term</option>
+                <option value="long-term" selected>Long-Term</option>
+            </select>
+        </div>
+        <button type="button" id="generateBtn">
+            <span>Generate Portfolio</span>
+            <div class="gold-shimmer"></div>
+        </button>
+        <div class="divscore" id="diversificationScore" style="display:none;"></div>
+    </form>
+
+    <div class="result" id="result" style="display:none;">
+        <!-- Portfolio output will be displayed here -->
+    </div>
+
+    <div class="scenario-section">
+        <h2>Simulate Market Scenarios</h2>
+        <button type="button" onclick="simulateScenario('bull')">
+            Bull Market
+            <div class="gold-shimmer"></div>
+        </button>
+        <button type="button" onclick="simulateScenario('bear')">
+            Bear Market
+            <div class="gold-shimmer"></div>
+        </button>
+        <div class="progress-bar-bg" id="scenarioProgressBg" style="display:none;">
+            <div class="progress-bar" id="scenarioProgress"></div>
+        </div>
+        <div id="scenarioResult"></div>
+    </div>
+
+    <div class="download-section">
+        <h2>Save or Export Your Portfolio</h2>
+        <button type="button" onclick="savePortfolio()">
+            Download Portfolio as PDF
+            <div class="gold-shimmer"></div>
+        </button>
+    </div>
+
+    <div class="analysis-section">
+        <h2>Portfolio Performance Tracker</h2>
+        <p>See how your portfolio could perform over time:</p>
+        <label for="years">Years to Simulate:</label>
+        <input type="number" id="years" placeholder="Enter years" min="1">
+        <button type="button" onclick="simulatePortfolioPerformance()">
+            Simulate Performance
+            <div class="gold-shimmer"></div>
+        </button>
+        <div id="performanceResult"></div>
+        <canvas id="performanceGraph"></canvas>
+    </div>
+</div>
+
+<!-- Floating AI Help Button -->
+<div class="help-fab" id="helpFab" title="Ask the AI Assistant">?</div>
+<div class="chatbot" id="chatbot">
+    <div class="chatbot-header">
+        Fundamental AI Assistant
+        <button class="close-chat" onclick="toggleChatbot()">&times;</button>
+    </div>
+    <div class="chatbot-messages" id="chatbotMessages">
+        <div><b>AI:</b> Hi! Ask me anything about investing or this app.</div>
+    </div>
+    <div class="chatbot-footer">
+        <input class="chatbot-input" id="chatInput" type="text" placeholder="Ask your question...">
+        <button class="chatbot-send" onclick="sendChat()">Send</button>
+    </div>
+</div>
+<!-- PDF export library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+    // --- Motion & UI --
+    document.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('mouseenter', e => {
+            const shimmer = btn.querySelector('.gold-shimmer');
+            if (shimmer) shimmer.style.opacity = 0.9;
+        });
+        btn.addEventListener('mouseleave', e => {
+            const shimmer = btn.querySelector('.gold-shimmer');
+            if (shimmer) shimmer.style.opacity = 0.55;
+        });
+    });
+
+    // --- Floating Chatbot
+    const helpFab = document.getElementById('helpFab');
+    const chatbot = document.getElementById('chatbot');
+    function toggleChatbot() {
+        chatbot.style.display = chatbot.style.display === 'flex' ? 'none' : 'flex';
+        if (chatbot.style.display === 'flex') {
+            chatbot.scrollTo(0, chatbot.scrollHeight);
+        }
+    }
+    helpFab.onclick = () => {
+        chatbot.style.display = 'flex';
+        chatbot.scrollTo(0, chatbot.scrollHeight);
+    };
+    // Close on outside click
+    window.addEventListener('click', function(event){
+        if (chatbot.style.display === 'flex' && !chatbot.contains(event.target) && event.target !== helpFab){
+            chatbot.style.display = 'none';
+        }
+    });
+
+    // Simple AI response
+    function sendChat() {
+        const input = document.getElementById('chatInput');
+        const val = input.value.trim();
+        if (!val) return;
+        const msgDiv = document.getElementById('chatbotMessages');
+        msgDiv.innerHTML += `<div style="margin:7px 0 0 0;"><b>You:</b> ${val}</div>`;
+        input.value = "";
+        setTimeout(()=>{
+            let aiResp = "I'm here to help! For portfolio advice, try selecting your sectors and risk, then click Generate.";
+            if (/divers/i.test(val)) aiResp = "Diversification means spreading your investments across different sectors. Try picking at least 3!";
+            else if (/pdf|download/i.test(val)) aiResp = "Click the 'Download Portfolio as PDF' button below your results!";
+            else if (/performance|returns|simulate/i.test(val)) aiResp = "Try the Portfolio Performance Tracker to see how your portfolio grows.";
+            else if (/risk/i.test(val)) aiResp = "Higher risk can mean higher returns, but also bigger losses. Adjust the slider for your comfort.";
+            else if (/crypto|bitcoin|ethereum/i.test(val)) aiResp = "Crypto is highly volatile. Consider your risk tolerance before investing much in it!";
+            msgDiv.innerHTML += `<div style="margin:7px 0 0 0;"><b>AI:</b> ${aiResp}</div>`;
+            msgDiv.scrollTo(0, msgDiv.scrollHeight);
+        }, 600);
+    }
+    document.getElementById('chatInput').addEventListener('keyup', function(e){
+        if(e.key==='Enter') sendChat();
+    });
+
+    // --- Sectors button selection
+    document.querySelectorAll('.sector-button').forEach(button => {
+        button.addEventListener('click', () => {
+            button.classList.toggle('selected');
+        });
+    });
+
+    // Risk slider
+    const riskInput = document.getElementById('riskAversion');
+    const riskLevelDisplay = document.getElementById('riskLevelDisplay');
+    riskInput.addEventListener('input', () => {
+        const riskLevel = parseInt(riskInput.value);
+        let description = "Moderate";
+        if (riskLevel <= 2) description = "Very Cautious";
+        else if (riskLevel <= 4) description = "Cautious";
+        else if (riskLevel <= 6) description = "Moderate";
+        else if (riskLevel <= 8) description = "Risk-Taking";
+        else description = "Very Risk-Taking";
+        riskLevelDisplay.textContent = `Risk Tolerance: ${description}`;
+    });
+
+    // Generate Portfolio
+    document.getElementById('generateBtn').onclick = generatePortfolio;
+    function generatePortfolio() {
+        const budgetInput = document.getElementById('budget');
+        const budget = parseFloat(budgetInput.value);
+        if (isNaN(budget) || budget < 100) {
+            budgetInput.style.borderColor = "#f00";
+            budgetInput.focus();
+            return;
+        } else {
+            budgetInput.style.borderColor = "var(--gold)";
+        }
+        const marketSentiment = document.getElementById('marketSentiment').value;
+        const favoriteSectors = Array.from(document.querySelectorAll('.sector-button.selected')).map(btn => btn.dataset.sector);
+        const riskAversion = parseInt(document.getElementById('riskAversion').value);
+        const timeHorizon = document.getElementById('timeHorizon').value;
+
+        // Allocation Logic
+        const baseAllocation = {
+            "Tech": 0.3,
+            "Healthcare": 0.2,
+            "Energy": 0.1,
+            "Finance": 0.15,
+            "Consumer Goods": 0.15,
+            "Utilities": 0.1,
+            "Crypto": 0.05,
+            "Meme Stocks": 0.05
+        };
+        favoriteSectors.forEach(sector => {
+            if (baseAllocation[sector]) {
+                baseAllocation[sector] += 0.1 / favoriteSectors.length;
+            }
+        });
+        if (marketSentiment === "positive") {
+            baseAllocation["Tech"] += 0.09;
+            baseAllocation["Healthcare"] += 0.04;
+        } else if (marketSentiment === "negative") {
+            baseAllocation["Utilities"] += 0.1;
+            baseAllocation["Consumer Goods"] += 0.05;
+        }
+        if (riskAversion >= 7) {
+            baseAllocation["Tech"] -= 0.11;
+            baseAllocation["Meme Stocks"] += 0.11;
+        }
+        const totalWeight = Object.values(baseAllocation).reduce((a, b) => a + b, 0);
+        for (let key in baseAllocation) {
+            baseAllocation[key] = Math.max(baseAllocation[key] / totalWeight, 0);
+        }
+        const portfolio = {};
+        for (let key in baseAllocation) {
+            portfolio[key] = (baseAllocation[key] * budget).toFixed(2);
+        }
+        const sectorExamples = {
+            "Tech": "AAPL, MSFT, NVDA",
+            "Healthcare": "JNJ, PFE, LLY",
+            "Energy": "XOM, CVX, NEE",
+            "Finance": "JPM, BAC, GS",
+            "Consumer Goods": "PG, KO, PEP",
+            "Utilities": "DUK, SO, CEG",
+            "Crypto": "BTC, ETH",
+            "Meme Stocks": "GME, AMC"
+        };
+        // Portfolio Results
+        let output = "<h2>Your AI-Generated Portfolio</h2>";
+        for (let sector in portfolio) {
+            output += `<p><strong>${sector}:</strong> $${portfolio[sector]} <span style="color:var(--gold);font-weight:600">(${sectorExamples[sector]})</span></p>`;
+        }
+        // Diversification Score
+        let unique = Object.keys(portfolio).filter(s => portfolio[s] > 0);
+        let score = Math.round((favoriteSectors.length / 8) * 100);
+        if (score < 30) score = 30; // Encourage at least moderate diversity
+        let divmsg = score >= 80 ? "Excellent diversification! 🟢"
+            : score >= 60 ? "Good diversification. 🟡"
+            : score >= 45 ? "Needs more diversity. 🟠"
+            : "Very undiversified. 🔴";
+        document.getElementById('diversificationScore').innerHTML =
+            `Diversification Score: <b>${score}/100</b> &ndash; ${divmsg}`;
+        document.getElementById('diversificationScore').style.display = "block";
+        document.getElementById('result').innerHTML = output;
+        document.getElementById('result').style.display = "block";
+    }
+
+    // Market Scenario Simulation (with progress)
+    function simulateScenario(type) {
+        const scenarioResult = document.getElementById('scenarioResult');
+        const budget = parseFloat(document.getElementById('budget').value) || 0;
+        const currentAllocations = Array.from(document.querySelectorAll('.sector-button.selected'));
+        if (!budget || currentAllocations.length === 0) {
+            scenarioResult.innerHTML = "<p style='color:var(--gold);'>Please generate a portfolio first!</p>";
+            return;
+        }
+        const scenarioProgressBg = document.getElementById('scenarioProgressBg');
+        const scenarioProgress = document.getElementById('scenarioProgress');
+        scenarioProgressBg.style.display = 'block';
+        scenarioProgress.style.width = '0%';
+        scenarioResult.innerHTML = '';
+        // Animate progress
+        setTimeout(()=>{
+            scenarioProgress.style.width = '100%';
+        }, 60);
+        setTimeout(()=>{
+            scenarioProgressBg.style.display = 'none';
+            let factor = type === 'bull' ? 1.22 : 0.77;
+            let icon = type === 'bull' ? "🚀" : "📉";
+            scenarioResult.innerHTML = `<h3>${type === 'bull' ? 'Bull' : 'Bear'} Market Simulation ${icon}</h3>`;
+            currentAllocations.forEach(button => {
+                const sectorName = button.dataset.sector;
+                const adjustedValue = (budget * factor / currentAllocations.length).toFixed(2);
+                scenarioResult.innerHTML += `<p>${sectorName}: $${adjustedValue}</p>`;
+            });
+        }, 1600);
+    }
+
+    // PDF Download (html2pdf)
+    function savePortfolio() {
+        const resultDiv = document.getElementById('result');
+        if (!resultDiv || !resultDiv.innerHTML.trim()) return alert('Please generate a portfolio first!');
+        html2pdf().from(resultDiv).set({
+            margin: 0.6,
+            filename: 'fundamental_portfolio.pdf',
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+        }).save();
+    }
+
+    // Portfolio Performance & Animated Graph
+    function simulatePortfolioPerformance() {
+        const years = parseInt(document.getElementById('years').value);
+        const budget = parseFloat(document.getElementById('budget').value);
+        if (!years || years <= 0 || !budget) {
+            alert('Please enter a valid number of years and budget.');
+            return;
+        }
+        const growthRate = 0.07; // 7%
+        const perfResult = document.getElementById('performanceResult');
+        let vals = [], labels = [];
+        let val = budget;
+        for (let y = 0; y <= years; y++) {
+            vals.push(val);
+            labels.push(y);
+            val *= (1 + growthRate);
+        }
+        perfResult.innerHTML = `<p>After ${years} years, your portfolio could grow to <strong style="color:var(--gold)">$${vals[vals.length-1].toFixed(2)}</strong> assuming an average annual growth rate of 7%.</p>`;
+        drawPerformanceGraph(labels, vals);
+    }
+
+    // Simple Canvas Line Graph
+    function drawPerformanceGraph(labels, data) {
+        const canvas = document.getElementById('performanceGraph');
+        const w = canvas.width = Math.min(window.innerWidth-80, 700);
+        const h = canvas.height = 230;
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0,0,w,h);
+        // Axes
+        ctx.strokeStyle = "#fff";
+        ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(40, h-40); ctx.lineTo(40, 30); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(40, h-40); ctx.lineTo(w-30, h-40); ctx.stroke();
+        // Data Line
+        let max = Math.max(...data), min = Math.min(...data);
+        let yscale = (h-70)/(max-min || 1);
+        ctx.strokeStyle = "#d4af37"; ctx.lineWidth = 3.2;
+        ctx.beginPath();
+        data.forEach((val, i) => {
+            let x = 40 + i*(w-80)/(data.length-1);
+            let y = h-40 - (val-min)*yscale;
+            if (i===0) ctx.moveTo(x,y);
+            else ctx.lineTo(x,y);
+        });
+        ctx.stroke();
+        // Dots
+        data.forEach((val, i) => {
+            let x = 40 + i*(w-80)/(data.length-1);
+            let y = h-40 - (val-min)*yscale;
+            ctx.fillStyle = "#fff";
+            ctx.beginPath(); ctx.arc(x, y, 4.5, 0, 2*Math.PI); ctx.fill();
+        });
+        // Labels
+        ctx.fillStyle = "#fff"; ctx.font = "bold 14px Roboto";
+        ctx.fillText(labels[0]+" yr", 42, h-10);
+        ctx.fillText(labels[labels.length-1]+" yr", w-55, h-10);
+        ctx.fillText("$"+Math.round(max), 3, 35);
+        ctx.fillText("$"+Math.round(min), 3, h-44);
+    }
+</script>
+</body>
+</html>
+
+
